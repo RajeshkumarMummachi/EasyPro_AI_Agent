@@ -4,6 +4,10 @@ Main script to run the EasyPro AI Agent
 from ai_agent import AIAgent
 
 
+# Default system message for the agent
+DEFAULT_SYSTEM_MESSAGE = "You are a helpful AI assistant. Be concise and friendly."
+
+
 def main():
     """
     Main function to run the AI agent in interactive mode.
@@ -22,9 +26,7 @@ def main():
         agent = AIAgent()
         
         # Set a default system message
-        agent.add_system_message(
-            "You are a helpful AI assistant. Be concise and friendly."
-        )
+        agent.add_system_message(DEFAULT_SYSTEM_MESSAGE)
         
         # Interactive loop
         while True:
@@ -40,9 +42,7 @@ def main():
             
             elif user_input.lower() == 'clear':
                 agent.clear_history()
-                agent.add_system_message(
-                    "You are a helpful AI assistant. Be concise and friendly."
-                )
+                agent.add_system_message(DEFAULT_SYSTEM_MESSAGE)
                 print("\nConversation history cleared.")
                 continue
             

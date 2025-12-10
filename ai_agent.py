@@ -24,7 +24,7 @@ class AIAgent:
         load_dotenv()
         
         # Load configuration
-        with open(config_path, 'r') as f:
+        with open(config_path, 'r', encoding='utf-8') as f:
             self.config = json.load(f)
         
         # Initialize OpenAI client
@@ -83,6 +83,10 @@ class AIAgent:
             # Extract assistant's response
             assistant_message = response.choices[0].message.content
             
+            # Handle potential null response
+            if assistant_message is None:
+                assistant_message = "I apologize, but I couldn't generate a response. Please try again."
+            
             # Add assistant's response to history
             self.conversation_history.append({
                 "role": "assistant",
@@ -116,7 +120,7 @@ class AIAgent:
         Args:
             filepath: Path to save the history
         """
-        with open(filepath, 'w') as f:
+        with open(filepath, 'w', encoding='utf-8') as f:
             json.dump(self.conversation_history, f, indent=2)
     
     def load_history(self, filepath: str):
@@ -126,5 +130,5 @@ class AIAgent:
         Args:
             filepath: Path to load the history from
         """
-        with open(filepath, 'r') as f:
+        with open(filepath, 'r', encoding='utf-8') as f:
             self.conversation_history = json.load(f)
